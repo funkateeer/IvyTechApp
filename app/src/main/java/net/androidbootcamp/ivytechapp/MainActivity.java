@@ -112,7 +112,7 @@ public class MainActivity extends Activity {
                 break;
 
             case 2:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.ivytech.edu/northeast/calendar/")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://calendar.google.com/calendar/embed?showTitle=0&showTabs=0&showCalendars=0&mode=AGENDA&height=600&wkst=1&bgcolor=%23FFFFFF&src=ivytech.calendars@gmail.com&color=%23125A12&src=a650fjdiufg9dkgho15tvalgso@group.calendar.google.com&color=%23125A12&ctz=America/New_York")));
                 break;
 
             case 3:
