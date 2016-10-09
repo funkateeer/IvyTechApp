@@ -12,7 +12,6 @@ package net.androidbootcamp.ivytechapp.CustomListAdapter;
         import android.widget.ArrayAdapter;
         import android.widget.ImageView;
         import android.widget.TextView;
-
         import net.androidbootcamp.ivytechapp.R;
 
 public class CustomListAdapter extends ArrayAdapter<String> {

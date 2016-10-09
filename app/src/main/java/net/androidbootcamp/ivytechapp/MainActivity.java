@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -16,6 +15,7 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import net.androidbootcamp.ivytechapp.CustomListAdapter.CustomListAdapter;
+import net.androidbootcamp.ivytechapp.CustomListAdapter.DiningActivity;
 
 
 //public class MainActivity extends ListActivity {
@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
 
     Integer[] imgid = {
             R.drawable.googlemapsicon,
-            R.drawable.ic_launcher_contactinfo,
+            R.drawable.contactinfo,
             R.drawable.calendaricon,
             R.drawable.restauranticon,
     };
@@ -57,8 +57,20 @@ public class MainActivity extends Activity {
                                     int position, long id) {
                 // TODO Auto-generated method stub
                 String Slecteditem = itemname[+position];
-                Toast.makeText(getApplicationContext(), Slecteditem, Toast.LENGTH_SHORT).show();
+                switch(position) {
+                    case 0: String uri = "https://www.google.com/maps/place/Ivy+Tech+Community+College-Northeast/@41.1134666,-85.107286,15z/data=!4m5!3m4!1s0x0:0x14b7f609332648a6!8m2!3d41.1123112!4d-85.1119423";
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                            startActivity(intent);
+                        break;
+                    case 1: Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.stackoverflow.com"));
+                        startActivity(browserIntent2);
+                        break;
+                    case 2: Intent browserIntent3 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://calendar.google.com/calendar/embed?showTitle=0&showTabs=0&showCalendars=0&mode=AGENDA&height=600&wkst=1&bgcolor=%23FFFFFF&src=ivytech.calendars@gmail.com&color=%23125A12&src=a650fjdiufg9dkgho15tvalgso@group.calendar.google.com&color=%23125A12&ctz=America/New_York"));
+                        startActivity(browserIntent3);
+                        break;
+                    case 3: startActivity(new Intent(MainActivity.this, DiningActivity.class));
 
+                }
             }
         });
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -102,22 +114,5 @@ public class MainActivity extends Activity {
         client.disconnect();
     }
 
-    protected void onListItemClick(ListView l, View v, int position, long id){
-        switch(position){
-            case 0:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.ivytech.edu/northeast/calendar/")));
-                break;
-            case 1:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.ivytech.edu/northeast/calendar/")));
-                break;
 
-            case 2:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://calendar.google.com/calendar/embed?showTitle=0&showTabs=0&showCalendars=0&mode=AGENDA&height=600&wkst=1&bgcolor=%23FFFFFF&src=ivytech.calendars@gmail.com&color=%23125A12&src=a650fjdiufg9dkgho15tvalgso@group.calendar.google.com&color=%23125A12&ctz=America/New_York")));
-                break;
-
-            case 3:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.ivytech.edu/northeast/calendar/")));
-                break;
-        }
-    }
 }
