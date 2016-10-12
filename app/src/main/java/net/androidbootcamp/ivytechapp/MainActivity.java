@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
 
     ListView list;
     String[] itemname = {
-            "Campus Maps",
+            "Campus Map",
             "Instructor Info",
             "Calendar of Events",
             "Dining"
@@ -58,9 +58,9 @@ public class MainActivity extends Activity {
                 // TODO Auto-generated method stub
                 String Slecteditem = itemname[+position];
                 switch(position) {
-                    case 0: String uri = "https://www.google.com/maps/place/Ivy+Tech+Community+College-Northeast/@41.1134666,-85.107286,15z/data=!4m5!3m4!1s0x0:0x14b7f609332648a6!8m2!3d41.1123112!4d-85.1119423";
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                            startActivity(intent);
+                    case 0: //String uri = "https://www.google.com/maps/place/Ivy+Tech+Community+College-Northeast/@41.1134666,-85.107286,15z/data=!4m5!3m4!1s0x0:0x14b7f609332648a6!8m2!3d41.1123112!4d-85.1119423";
+                            //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                            startActivity(new Intent(MainActivity.this, MapsActivity.class));
                         break;
                     case 1: Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.stackoverflow.com"));
                         startActivity(browserIntent2);

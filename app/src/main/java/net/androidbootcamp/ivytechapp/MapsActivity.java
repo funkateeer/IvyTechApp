@@ -17,7 +17,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -37,10 +38,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //LatLng sydney = new LatLng(-34, 151);
+        //LatLng colCampus = new LatLng(-41.112497, -85.111792);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(41.112263,-85.111534) , 18.0f));
+        //float zoomLevel = 15.0f;
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(colCampus, zoomLevel));
+        //mMap.setMaxZoomPreference(14.0f);
+        //mMap.setMinZoomPreference(9.0f);
+        //mMap.addMarker(new MarkerOptions().position(colCampus).title("Coliseum Campus"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(colCampus));
     }
 }
