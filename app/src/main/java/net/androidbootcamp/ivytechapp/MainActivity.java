@@ -58,17 +58,15 @@ public class MainActivity extends Activity {
                 // TODO Auto-generated method stub
                 String Slecteditem = itemname[+position];
                 switch(position) {
-                    case 0: //String uri = "https://www.google.com/maps/place/Ivy+Tech+Community+College-Northeast/@41.1134666,-85.107286,15z/data=!4m5!3m4!1s0x0:0x14b7f609332648a6!8m2!3d41.1123112!4d-85.1119423";
-                            //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                            startActivity(new Intent(MainActivity.this, MapsActivity.class));
+                    case 0: startActivity(new Intent(MainActivity.this, MapsActivity.class));
                         break;
                     case 1: Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.stackoverflow.com"));
-                        startActivity(browserIntent2);
+                            startActivity(browserIntent2);
                         break;
                     case 2: Intent browserIntent3 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://calendar.google.com/calendar/embed?showTitle=0&showTabs=0&showCalendars=0&mode=AGENDA&height=600&wkst=1&bgcolor=%23FFFFFF&src=ivytech.calendars@gmail.com&color=%23125A12&src=a650fjdiufg9dkgho15tvalgso@group.calendar.google.com&color=%23125A12&ctz=America/New_York"));
-                        startActivity(browserIntent3);
+                            startActivity(browserIntent3);
                         break;
-                    case 3: startActivity(new Intent(MainActivity.this, DiningActivity.class));
+                    case 3: startActivity(new Intent(MainActivity.this, DiningActivityTake2.class));
 
                 }
             }
