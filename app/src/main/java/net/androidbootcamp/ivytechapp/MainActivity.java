@@ -15,7 +15,6 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import net.androidbootcamp.ivytechapp.CustomListAdapter.CustomListAdapter;
-import net.androidbootcamp.ivytechapp.CustomListAdapter.DiningActivity;
 
 
 //public class MainActivity extends ListActivity {
@@ -26,7 +25,8 @@ public class MainActivity extends Activity {
             "Campus Map",
             "Instructor Info",
             "Calendar of Events",
-            "Dining"
+            "Dining",
+            "FAQs"
     };
 
     Integer[] imgid = {
@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
             R.drawable.contactinfo,
             R.drawable.calendaricon,
             R.drawable.restauranticon,
+            R.drawable.faqimage
     };
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -67,7 +68,9 @@ public class MainActivity extends Activity {
                             startActivity(browserIntent3);
                         break;
                     case 3: startActivity(new Intent(MainActivity.this, DiningActivityTake2.class));
-
+                        break;
+                    case 4: Intent browserIntent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://ivytechfaq.com/index.html?utm_source=IvyTech.edu/FAQ&utm_medium=Redirect&utm_campaign=FAQ"));
+                            startActivity(browserIntent4);
                 }
             }
         });
