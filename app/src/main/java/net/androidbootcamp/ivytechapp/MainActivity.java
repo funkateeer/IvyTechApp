@@ -26,6 +26,7 @@ public class MainActivity extends Activity {
             "Instructor Info",
             "Calendar of Events",
             "Dining",
+            "campusLink",
             "FAQs"
     };
 
@@ -34,6 +35,7 @@ public class MainActivity extends Activity {
             R.drawable.contactinfo,
             R.drawable.calendaricon,
             R.drawable.restauranticon,
+            R.drawable.busicon,
             R.drawable.faqimage
     };
     /**
@@ -69,7 +71,9 @@ public class MainActivity extends Activity {
                         break;
                     case 3: startActivity(new Intent(MainActivity.this, DiningActivityTake2.class));
                         break;
-                    case 4: Intent browserIntent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://ivytechfaq.com/index.html?utm_source=IvyTech.edu/FAQ&utm_medium=Redirect&utm_campaign=FAQ"));
+                    case 4: startActivity(new Intent(MainActivity.this, CampusLinkActivity.class));
+                        break;
+                    case 5: Intent browserIntent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://ivytechfaq.com/index.html?utm_source=IvyTech.edu/FAQ&utm_medium=Redirect&utm_campaign=FAQ"));
                             startActivity(browserIntent4);
                 }
             }

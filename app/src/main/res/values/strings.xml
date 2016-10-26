@@ -97,4 +97,5 @@
     </string>
     <string name="title_activity_dining_take2">DiningActivityTake2</string>
     <string name="title_activity_blue_bamboo_scrolling">BlueBambooScrollingActivity</string>
+    <string name="title_activity_campus_link">CampusLinkActivity</string>
 </resources>
