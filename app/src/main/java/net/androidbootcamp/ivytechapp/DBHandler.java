@@ -133,7 +133,12 @@ public class DBHandler extends SQLiteOpenHelper
     }
 
     // Deleting single classroom
-    public void deleteClassroom(Classroom classroom) {}
+    public void deleteClassroom(Classroom classroom) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(CLASSROOMS, KEY_ID + " =?",
+                new String[] {String.valueOf(classroom.getRoomNumber())});
+        db.close();
+    }
 }
 
 
