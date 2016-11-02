@@ -61,7 +61,7 @@ public class MainActivity extends Activity {
                 // TODO Auto-generated method stub
                 String Slecteditem = itemname[+position];
                 switch(position) {
-                    case 0: startActivity(new Intent(MainActivity.this, MapsActivity.class));
+                    case 0: startActivity(new Intent(MainActivity.this, MapsInterfaceActivity.class));
                         break;
                     case 1: Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://cc.ivytech.edu/cp/render.UserLayoutRootNode.uP?uP_tparam=utf&utf=http://whitepages.ivytech.edu/"));
                         startActivity(browserIntent2);
