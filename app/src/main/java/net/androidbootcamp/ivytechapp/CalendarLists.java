@@ -15,28 +15,21 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import net.androidbootcamp.ivytechapp.CustomListAdapter.CustomListAdapter;
+import net.androidbootcamp.ivytechapp.CustomListAdapter.DiningActivity;
 
-
-//public class MainActivity extends ListActivity {
-public class MainActivity extends Activity {
+public class CalendarLists extends Activity {
 
     ListView list;
     String[] itemname = {
-            "Campus Map",
-            "Instructor Info",
-            "Calendars",
-            "Dining",
-            "campusLink",
-            "FAQs"
+            "News Calendar",
+            "Events Calendar",
+            "Student Activities"
     };
 
     Integer[] imgid = {
-            R.drawable.googlemapsicon,
-            R.drawable.contactinfo,
             R.drawable.calendaricon,
-            R.drawable.restauranticon,
-            R.drawable.busicon,
-            R.drawable.faqimage
+            R.drawable.calendaricon,
+            R.drawable.calendaricon
     };
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -61,19 +54,15 @@ public class MainActivity extends Activity {
                 // TODO Auto-generated method stub
                 String Slecteditem = itemname[+position];
                 switch(position) {
-                    case 0: startActivity(new Intent(MainActivity.this, MapsActivity.class));
+                    case 0: Intent browserIntent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://calendar.google.com/calendar/embed?showTitle=0&showTabs=0&showCalendars=0&mode=AGENDA&height=600&wkst=1&bgcolor=%23FFFFFF&src=ivytech.calendars@gmail.com&color=%23125A12&src=a650fjdiufg9dkgho15tvalgso@group.calendar.google.com&color=%23125A12&ctz=America/New_York"));
+                        startActivity(browserIntent1);
                         break;
-                    case 1: Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://cc.ivytech.edu/cp/render.UserLayoutRootNode.uP?uP_tparam=utf&utf=http://whitepages.ivytech.edu/"));
+                    case 1: Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://events.ivytech.edu"));
                         startActivity(browserIntent2);
                         break;
-                    case 2: startActivity(new Intent(MainActivity.this, CalendarLists.class));
+                    case 2: Intent browserIntent3 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://orgsync.com/62194/events?view=upcoming"));
+                        startActivity(browserIntent3);
                         break;
-                    case 3: startActivity(new Intent(MainActivity.this, DiningActivityTake2.class));
-                        break;
-                    case 4: startActivity(new Intent(MainActivity.this, CampusLinkActivity.class));
-                        break;
-                    case 5: Intent browserIntent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://ivytechfaq.com/index.html?utm_source=IvyTech.edu/FAQ&utm_medium=Redirect&utm_campaign=FAQ"));
-                            startActivity(browserIntent4);
                 }
             }
         });
