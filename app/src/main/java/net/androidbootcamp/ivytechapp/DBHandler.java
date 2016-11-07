@@ -25,9 +25,9 @@ public class DBHandler extends SQLiteOpenHelper
     private static final int DATABASE_VERSION = 1;
     // Database Name
     private static final String DATABASE_NAME = "CLASSROOMS";
-    // Contacts table name
+    // Classroom table name
     private static final String CLASSROOMS = "classrooms";
-    // Shops Table Columns names
+    // Classroom Table Columns names
     private static final String KEY_ID = "roomNumber";
     private static final String KEY_LATITUDE = "latitude";
     private static final String KEY_LONGITUDE = "longitude";

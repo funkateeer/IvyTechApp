@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
                 switch(position) {
                     case 0: startActivity(new Intent(MainActivity.this, MapsInterfaceActivity.class));
                         break;
-                    case 1: Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://cc.ivytech.edu/cp/render.UserLayoutRootNode.uP?uP_tparam=utf&utf=http://whitepages.ivytech.edu/"));
+                    case 1: Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://whitepages.ivytech.edu/whitepages.cgi?fname=&lname=&campus=Fort+Wayne&dept=&title=&uid=&submit=Search%21"));
                         startActivity(browserIntent2);
                         break;
                     case 2: startActivity(new Intent(MainActivity.this, CalendarLists.class));
