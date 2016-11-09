@@ -21,23 +21,6 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="45dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginTop="17dp"
-        android:ellipsize="start"
-        android:gravity="center_horizontal"
-        android:id="@+id/editText"
-        android:hint="Room Number"
-        android:textSize="24sp" />
-
     <Button
         android:text="Find Room"
         android:layout_width="wrap_content"
@@ -47,4 +30,19 @@
         android:layout_marginTop="12dp"
         android:id="@+id/button2"
         android:textSize="24sp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="24dp"
+        android:ellipsize="start"
+        android:gravity="center_horizontal"
+        android:id="@+id/editText"
+        android:hint="Room Number"
+        android:textSize="24sp"
+        android:layout_below="@+id/textView2"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2" />
 </RelativeLayout>
