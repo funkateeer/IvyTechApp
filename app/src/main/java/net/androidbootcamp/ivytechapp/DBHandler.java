@@ -7,14 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-
 /**
  * Created by jamesdrewery on 10/26/16.
  */
-
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +18,10 @@ public class DBHandler extends SQLiteOpenHelper
     {
     // Database Version
     private static final int DATABASE_VERSION = 1;
+    private static String DB_PATH = "";
     // Database Name
-    private static final String DATABASE_NAME = "CLASSROOMS";
+    //private static final String DB_NAME = "CLASSROOMS";
+    private static final String DB_NAME = "databases/classrooms.sqlite";
     // Classroom table name
     private static final String CLASSROOMS = "classrooms";
     // Classroom Table Columns names
@@ -32,8 +29,18 @@ public class DBHandler extends SQLiteOpenHelper
     private static final String KEY_LATITUDE = "latitude";
     private static final String KEY_LONGITUDE = "longitude";
 
+    private final Context context;
+    private SQLiteDatabase db;
+
     public DBHandler(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, DB_NAME, null, DATABASE_VERSION);
+
+        if (android.os.Build.VERSION.SDK_INT >= 17){
+            DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
+        } else {
+            DB_PATH = "/data/data/" + context.getPackageName() + "/databases";
+        }
+        this.context = context;
     }
 
     @Override
@@ -44,6 +51,8 @@ public class DBHandler extends SQLiteOpenHelper
         + KEY_LONGITUDE + " FLOAT" + ")";
         db.execSQL(CREATE_CLASSROOM_TABLE);
     }
+
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
@@ -67,7 +76,7 @@ public class DBHandler extends SQLiteOpenHelper
     }
 
     // Getting single classroom
-    public Classroom getClassroom(int id)
+    public Classroom getClassroom(String id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -77,8 +86,10 @@ public class DBHandler extends SQLiteOpenHelper
         if (cursor != null)
             cursor.moveToFirst();
 
-        Classroom classroom = new Classroom(cursor.getString(0), Float.parseFloat(cursor.getString(1)),
-                                            Float.parseFloat(cursor.getString(2)));
+        /*Classroom classroom = new Classroom(cursor.getString(0), Float.parseFloat(cursor.getString(1)),
+                                            Float.parseFloat(cursor.getString(2)));*/
+        Classroom classroom = new Classroom(cursor.getString(0), cursor.getString(1),
+                cursor.getString(2));
         // return contact
         return classroom;
     }
@@ -98,8 +109,8 @@ public class DBHandler extends SQLiteOpenHelper
             do {
                 Classroom classroom = new Classroom();
                 classroom.setRoomNumber(cursor.getString(0));
-                classroom.setLatitude(Integer.parseInt(cursor.getString(1)));
-                classroom.setLongitude(Integer.parseInt(cursor.getString(2)));
+                classroom.setLatitude(cursor.getString(1));
+                classroom.setLongitude(cursor.getString(2));
                 // Adding contact to list
                 classroomList.add(classroom);
             } while (cursor.moveToNext());

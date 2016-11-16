@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
                         break;
                     case 3: startActivity(new Intent(MainActivity.this, DiningActivityTake2.class));
                         break;
-                    case 4: startActivity(new Intent(MainActivity.this, CampusLinkActivity.class));
+                    case 4: startActivity(new Intent(MainActivity.this, CampusLinkMenu.class));
                         break;
                     case 5: Intent browserIntent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://ivytechfaq.com/index.html?utm_source=IvyTech.edu/FAQ&utm_medium=Redirect&utm_campaign=FAQ"));
                             startActivity(browserIntent4);

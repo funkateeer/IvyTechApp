@@ -72,6 +72,10 @@
             android:name=".CampusLinkActivity"
             android:label="@string/title_activity_campus_link"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CampusLinkMenu"
+            android:label="@string/title_activity_campus_link"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CalendarLists" />
         <activity android:name=".MapsInterfaceActivity"></activity>
     </application>

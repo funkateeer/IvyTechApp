@@ -6,22 +6,22 @@ package net.androidbootcamp.ivytechapp;
 
 public class Classroom {
     private String roomNumber;
-    private float latitude;
-    private float longitude;
+    private String latitude;
+    private String longitude;
 
     public Classroom()
     {
 
     }
 
-    public Classroom(String roomNumber, float latitude, float longitude)
+    public Classroom(String roomNumber, String latitude, String longitude)
     {
         this.roomNumber = roomNumber;
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public Classroom(float latitude, float longitude)
+    public Classroom(String latitude, String longitude)
     {
         this.latitude = latitude;
         this.longitude = longitude;
@@ -34,17 +34,17 @@ public class Classroom {
         return roomNumber;
     }
 
-    public void setLatitude(float latitutde) {
+    public void setLatitude(String latitutde) {
         this.latitude = latitutde;
     }
-    public float getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
-    public float getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 

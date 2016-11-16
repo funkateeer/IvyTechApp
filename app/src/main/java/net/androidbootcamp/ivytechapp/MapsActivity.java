@@ -1,7 +1,9 @@
 package net.androidbootcamp.ivytechapp;
 
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +25,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
+    double latitude;
+    double longitude;
     private GoogleMap mMap;
 
     @Override
@@ -35,6 +38,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String roomNum = sharedPref.getString("key1","");
+
+        DBHandler db = new DBHandler(this);
+
+        Classroom classrooms = db.getClassroom(roomNum);
+
+        latitude = Double.parseDouble(classrooms.getLatitude());
+        longitude = Double.parseDouble(classrooms.getLongitude());
     }
 
 
