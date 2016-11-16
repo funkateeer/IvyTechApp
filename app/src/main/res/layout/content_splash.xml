@@ -21,6 +21,6 @@
         android:textSize="38sp"
         android:textStyle="bold"
         android:gravity="bottom|center"
-        android:background="@drawable/splash" />
+        android:background="@drawable/splash2" />
 
 </RelativeLayout>
