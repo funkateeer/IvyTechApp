@@ -11,13 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class MapsInterfaceActivity extends AppCompatActivity {
-    String roomNum;
-    DBHandler db = new DBHandler(this);
+    public String roomNum;
+    public DBHandler db;
+    public DatabaseOpenHelper data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps_interface);
+        db = new DBHandler(this);
 
         final EditText room = (EditText)findViewById(R.id.editText);
         room.setFilters(new InputFilter[]{new InputFilter.AllCaps()});

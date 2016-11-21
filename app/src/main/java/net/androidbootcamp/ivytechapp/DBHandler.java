@@ -3,6 +3,7 @@ package net.androidbootcamp.ivytechapp;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -11,6 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by jamesdrewery on 10/26/16.
  */
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +23,9 @@ public class DBHandler extends SQLiteOpenHelper
     private static String DB_PATH = "";
     // Database Name
     //private static final String DB_NAME = "CLASSROOMS";
-    private static final String DB_NAME = "databases/classrooms.sqlite";
+    private static final String DB_NAME = "CLASSROOMS";
     // Classroom table name
-    private static final String CLASSROOMS = "classrooms";
+    private static final String CLASSROOMS = "CLASSROOMS";
     // Classroom Table Columns names
     private static final String KEY_ID = "roomNumber";
     private static final String KEY_LATITUDE = "latitude";
@@ -37,6 +39,7 @@ public class DBHandler extends SQLiteOpenHelper
 
         if (android.os.Build.VERSION.SDK_INT >= 17){
             DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
+            //opendatabase();
         } else {
             DB_PATH = "/data/data/" + context.getPackageName() + "/databases";
         }
@@ -62,6 +65,11 @@ public class DBHandler extends SQLiteOpenHelper
         onCreate(db);
     }
 
+    public void opendatabase() throws SQLException{
+        String mypath = DB_PATH + DB_NAME;
+        db = SQLiteDatabase.openDatabase(mypath, null, SQLiteDatabase.OPEN_READWRITE);
+    }
+
     // Adding new classroom
     public void addClassroom(Classroom classroom) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -78,19 +86,28 @@ public class DBHandler extends SQLiteOpenHelper
     // Getting single classroom
     public Classroom getClassroom(String id)
     {
+        float latitude = (float)0.0;
+        float longitude = (float)0.0;
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(CLASSROOMS, new String[] { KEY_ID,
-                        KEY_LATITUDE, KEY_LONGITUDE }, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
+        String selectLatLong = "SELECT LATITUDE, LONGITUDE FROM " + CLASSROOMS + " WHERE ROOM = " + id + ";";
+        //String selectLongitude = "SELECT LONGITUDE FROM" + CLASSROOMS + "WHERE KEY_ID = " + id + ";";
 
+        /*Cursor cursor = db.query(CLASSROOMS, new String[] { KEY_ID,
+                        KEY_LATITUDE, KEY_LONGITUDE }, KEY_ID + "=?",
+                new String[] { String.valueOf(id) }, null, null, null, null);*/
+        Cursor cursor = db.rawQuery(selectLatLong, null);
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            latitude = Float.parseFloat(cursor.getString(0));
+            longitude = Float.parseFloat(cursor.getString(1));
         /*Classroom classroom = new Classroom(cursor.getString(0), Float.parseFloat(cursor.getString(1)),
                                             Float.parseFloat(cursor.getString(2)));*/
-        Classroom classroom = new Classroom(cursor.getString(0), cursor.getString(1),
-                cursor.getString(2));
-        // return contact
+        /*Classroom classroom = new Classroom(cursor.getString(0), cursor.getString(1),
+                cursor.getString(2));*/
+            // return classroom
+        }
+        Classroom classroom = new Classroom(latitude, longitude);
         return classroom;
     }
 
@@ -109,8 +126,8 @@ public class DBHandler extends SQLiteOpenHelper
             do {
                 Classroom classroom = new Classroom();
                 classroom.setRoomNumber(cursor.getString(0));
-                classroom.setLatitude(cursor.getString(1));
-                classroom.setLongitude(cursor.getString(2));
+                classroom.setLatitude(Float.parseFloat(cursor.getString(1)));
+                classroom.setLongitude(Float.parseFloat(cursor.getString(2)));
                 // Adding contact to list
                 classroomList.add(classroom);
             } while (cursor.moveToNext());
