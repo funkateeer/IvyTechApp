@@ -11,15 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class MapsInterfaceActivity extends AppCompatActivity {
-    EditText editText;
     String roomNum;
+    DBHandler db = new DBHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps_interface);
-
-        DBHandler db = new DBHandler(this);
 
         final EditText room = (EditText)findViewById(R.id.editText);
         room.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
@@ -33,14 +31,15 @@ public class MapsInterfaceActivity extends AppCompatActivity {
                 startActivity(new Intent(MapsInterfaceActivity.this, MapsActivity.class));
             }
         });*/
-        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        //final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 roomNum = room.getText().toString();
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("key1", roomNum);
-                editor.apply();
+                db.getClassroom(roomNum);
+                //SharedPreferences.Editor editor = sharedPref.edit();
+                //editor.putString("key1", roomNum);
+                //editor.apply();
                 startActivity(new Intent(MapsInterfaceActivity.this, MapsActivity.class));
             }
         });
