@@ -22,14 +22,13 @@ public class DBHandler extends SQLiteOpenHelper
     private static final int DATABASE_VERSION = 1;
     private static String DB_PATH = "";
     // Database Name
-    //private static final String DB_NAME = "CLASSROOMS";
     private static final String DB_NAME = "CLASSROOMS";
     // Classroom table name
     private static final String CLASSROOMS = "CLASSROOMS";
     // Classroom Table Columns names
-    private static final String KEY_ID = "roomNumber";
-    private static final String KEY_LATITUDE = "latitude";
-    private static final String KEY_LONGITUDE = "longitude";
+    private static final String ROOM = "roomNumber";
+    private static final String LATITUDE = "latitude";
+    private static final String LONGITUDE = "longitude";
 
     private final Context context;
     private SQLiteDatabase db;
@@ -50,8 +49,8 @@ public class DBHandler extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         String CREATE_CLASSROOM_TABLE = "CREATE TABLE " + CLASSROOMS + "("
-        + KEY_ID + " INTEGER PRIMARY KEY," + KEY_LATITUDE + " FLOAT,"
-        + KEY_LONGITUDE + " FLOAT" + ")";
+        + ROOM + " INTEGER PRIMARY KEY," + LATITUDE + " FLOAT,"
+        + LONGITUDE + " FLOAT" + ")";
         db.execSQL(CREATE_CLASSROOM_TABLE);
     }
 
@@ -75,8 +74,8 @@ public class DBHandler extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_LATITUDE, classroom.getLatitude());
-        values.put(KEY_LONGITUDE, classroom.getLongitude());
+        values.put(LATITUDE, classroom.getLatitude());
+        values.put(LONGITUDE, classroom.getLongitude());
 
         // Inserting Row
         db.insert(CLASSROOMS, null, values);
@@ -90,7 +89,7 @@ public class DBHandler extends SQLiteOpenHelper
         float longitude = (float)0.0;
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String selectLatLong = "SELECT LATITUDE, LONGITUDE FROM " + CLASSROOMS + " WHERE ROOM = '" + id + "'";
+        String selectLatLong = "SELECT LATITUDE, LONGITUDE FROM " + CLASSROOMS + " WHERE ROOM = '" + id + "';";
         //String selectLongitude = "SELECT LONGITUDE FROM" + CLASSROOMS + "WHERE KEY_ID = " + id + ";";
 
         /*Cursor cursor = db.query(CLASSROOMS, new String[] { KEY_ID,
@@ -152,18 +151,18 @@ public class DBHandler extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_LATITUDE, classroom.getLatitude());
-        values.put(KEY_LONGITUDE, classroom.getLongitude());
+        values.put(LATITUDE, classroom.getLatitude());
+        values.put(LONGITUDE, classroom.getLongitude());
 
         // updating row
-        return db.update(CLASSROOMS, values, KEY_ID + " = ?",
+        return db.update(CLASSROOMS, values, ROOM + " = ?",
                 new String[] { String.valueOf(classroom.getRoomNumber()) });
     }
 
     // Deleting single classroom
     public void deleteClassroom(Classroom classroom) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(CLASSROOMS, KEY_ID + " =?",
+        db.delete(CLASSROOMS, ROOM + " =?",
                 new String[] {String.valueOf(classroom.getRoomNumber())});
         db.close();
     }

@@ -25,23 +25,12 @@ public class MapsInterfaceActivity extends AppCompatActivity {
         room.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
 
         Button button = (Button)findViewById(R.id.button2);
-        //editText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
-        //editText = (EditText)findViewById(R.id.editText);
-        /*button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                startActivity(new Intent(MapsInterfaceActivity.this, MapsActivity.class));
-            }
-        });*/
-        //final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 roomNum = room.getText().toString();
                 db.getClassroom(roomNum);
-                //SharedPreferences.Editor editor = sharedPref.edit();
-                //editor.putString("key1", roomNum);
-                //editor.apply();
                 startActivity(new Intent(MapsInterfaceActivity.this, MapsActivity.class));
             }
         });
