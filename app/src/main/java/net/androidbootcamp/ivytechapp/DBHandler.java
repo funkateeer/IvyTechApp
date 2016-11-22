@@ -90,7 +90,7 @@ public class DBHandler extends SQLiteOpenHelper
         float longitude = (float)0.0;
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String selectLatLong = "SELECT LATITUDE, LONGITUDE FROM " + CLASSROOMS + " WHERE ROOM = " + id + ";";
+        String selectLatLong = "SELECT LATITUDE, LONGITUDE FROM " + CLASSROOMS + " WHERE ROOM = '" + id + "'";
         //String selectLongitude = "SELECT LONGITUDE FROM" + CLASSROOMS + "WHERE KEY_ID = " + id + ";";
 
         /*Cursor cursor = db.query(CLASSROOMS, new String[] { KEY_ID,
