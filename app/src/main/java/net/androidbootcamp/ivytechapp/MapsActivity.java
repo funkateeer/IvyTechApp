@@ -1,6 +1,7 @@
 package net.androidbootcamp.ivytechapp;
 
 import android.content.SharedPreferences;
+import android.database.SQLException;
 import android.location.Location;
 import android.location.LocationListener;
 import android.preference.PreferenceManager;
@@ -23,6 +24,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     float latitude;
@@ -42,6 +45,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String roomNum = sharedPref.getString("key1","");
 
         DBHandler db = new DBHandler(this);
+
+        try {
+
+            db.createDataBase();
+
+        } catch (IOException ioe) {
+
+            throw new Error("Unable to create database");
+
+        }
+
+        try {
+
+            db.openDataBase();
+
+        }catch(SQLException sqle){
+
+            throw sqle;
+
+        }
+
 
         Classroom classrooms = db.getClassroom(roomNum);
 

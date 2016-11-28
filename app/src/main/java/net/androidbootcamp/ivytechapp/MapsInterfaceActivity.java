@@ -19,18 +19,21 @@ public class MapsInterfaceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps_interface);
-        db = new DBHandler(this);
+        //db = new DBHandler(this);
 
         final EditText room = (EditText)findViewById(R.id.editText);
         room.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
 
         Button button = (Button)findViewById(R.id.button2);
-
+        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 roomNum = room.getText().toString();
-                db.getClassroom(roomNum);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("key1", roomNum);
+                editor.apply();
+                //db.getClassroom(roomNum);
                 startActivity(new Intent(MapsInterfaceActivity.this, MapsActivity.class));
             }
         });
