@@ -31,157 +31,120 @@ public class DBHandler extends SQLiteOpenHelper
     // Classroom table name
     private static final String CLASSROOMS = "classrooms";
     // Classroom Table Columns names
-    private static final String ROOM = "ROOM";
+    private static final String _id = "_id";
     private static final String LATITUDE = "LATITUDE";
     private static final String LONGITUDE = "LONGITUDE";
 
     private final Context context;
-    private SQLiteDatabase db;
+    private SQLiteDatabase myDataBase;
 
     public DBHandler(Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
-        /*
-        if (android.os.Build.VERSION.SDK_INT >= 17){
-            //DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
-            DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
-            opendatabase();
-        } else {
-            DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
-        }
-        */
         this.context = context;
 
     }
 
-        public void createDataBase() throws IOException {
+    public void createDataBase() throws IOException {
 
-            boolean dbExist = checkDataBase();
+        boolean dbExist = checkDataBase();
 
-            if(dbExist){
-                //do nothing - database already exist
-            }else{
+        if (dbExist){
+            //do nothing - database already exist
+        } else {
 
-                //By calling this method and empty database will be created into the default system path
-                //of your application so we are gonna be able to overwrite that database with our database.
+            //By calling this method and empty database will be created into the default system path
+            //of your application so we are gonna be able to overwrite that database with our database.
 
-                //this.getReadableDatabase();
+            this.getReadableDatabase();
 
-                //try {
+            try {
 
-                    //copyDataBase();
+                copyDataBase();
 
-                //} catch (IOException e) {
+            } catch (IOException e) {
 
-                    throw new Error("Error opening database");
+                throw new Error("Error opening database");
 
-                //}
             }
-
         }
 
-        private boolean checkDataBase(){
+    }
 
-            SQLiteDatabase checkDB = null;
+    private boolean checkDataBase(){
 
-            try{
-                String myPath = DB_PATH + DB_NAME;
-                checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+        SQLiteDatabase checkDB = null;
 
-            }catch(SQLiteException e){
-
-                //database does't exist yet.
-
-            }
-
-            if(checkDB != null){
-
-                checkDB.close();
-
-            }
-
-            return checkDB != null ? true : false;
-        }
-
-        private void copyDataBase() throws IOException{
-
-            //Open your local db as the input stream
-            InputStream myInput = context.getAssets().open(DB_NAME);
-
-            // Path to the just created empty db
-            String outFileName = DB_PATH + DB_NAME;
-
-            //Open the empty db as the output stream
-            OutputStream myOutput = new FileOutputStream(outFileName);
-
-            //transfer bytes from the inputfile to the outputfile
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = myInput.read(buffer))>0){
-                myOutput.write(buffer, 0, length);
-            }
-
-            //Close the streams
-            myOutput.flush();
-            myOutput.close();
-            myInput.close();
-
-        }
-
-        public void openDataBase() throws SQLException{
-
-            //Open the database
+        try {
             String myPath = DB_PATH + DB_NAME;
-            db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+
+        } catch(SQLiteException e){
+
+            //database does't exist yet.
 
         }
 
-        @Override
-        public synchronized void close() {
+        if(checkDB != null){
 
-            if(db != null)
-                db.close();
+            checkDB.close();
+
+        }
+
+        return checkDB != null ? true : false;
+    }
+
+    private void copyDataBase() throws IOException{
+
+        //Open your local db as the input stream
+        InputStream myInput = context.getAssets().open("databases/classrooms.db");
+
+        // Path to the just created empty db
+        String outFileName = DB_PATH + DB_NAME;
+
+        //Open the empty db as the output stream
+        OutputStream myOutput = new FileOutputStream(outFileName);
+
+        //transfer bytes from the inputfile to the outputfile
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = myInput.read(buffer))>0){
+            myOutput.write(buffer, 0, length);
+        }
+
+        //Close the streams
+        myOutput.flush();
+        myOutput.close();
+        myInput.close();
+
+    }
+
+    public void openDataBase() throws SQLException{
+
+        //Open the database
+        String myPath = DB_PATH + DB_NAME;
+        myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+
+    }
+
+    @Override
+    public synchronized void close() {
+
+        if(myDataBase != null)
+            myDataBase.close();
 
             super.close();
 
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-        }
-
-
-
-    /*
-    @Override
-    public void onCreate(SQLiteDatabase db)
-    {
-        //String CREATE_CLASSROOM_TABLE = "CREATE TABLE " + CLASSROOMS + "("
-        //+ ROOM + " INTEGER PRIMARY KEY," + LATITUDE + " FLOAT,"
-        //+ LONGITUDE + " FLOAT" + ")";
-        //db.execSQL(CREATE_CLASSROOM_TABLE);
     }
-
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
-        // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + CLASSROOMS);
-        // Creating tables again
-        onCreate(db);
+    public void onCreate(SQLiteDatabase db) {
+
     }
 
-    public void opendatabase() throws SQLException{
-        String mypath = DB_PATH + DB_NAME;
-        db = SQLiteDatabase.openDatabase(mypath, null, SQLiteDatabase.OPEN_READWRITE);
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
     }
-    */
 
     // Getting single classroom
     public Classroom getClassroom(String id)
@@ -190,7 +153,7 @@ public class DBHandler extends SQLiteOpenHelper
         //float longitude = (float)0.0;
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String selectLatLong = "SELECT LATITUDE, LONGITUDE FROM " + CLASSROOMS + " WHERE ROOM = '" + id + "'";
+        String selectLatLong = "SELECT LATITUDE, LONGITUDE FROM " + CLASSROOMS + " WHERE _id = '" + id + "'";
 
         Cursor cursor = db.rawQuery(selectLatLong, null);
         Classroom classroom = new Classroom();
