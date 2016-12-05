@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 
 /**
@@ -78,13 +79,13 @@ public class DBHandler extends SQLiteOpenHelper
             String myPath = DB_PATH + DB_NAME;
             checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
 
-        } catch(SQLiteException e){
+        } catch (SQLiteException e){
 
             //database does't exist yet.
 
         }
 
-        if(checkDB != null){
+        if (checkDB != null){
 
             checkDB.close();
 
@@ -129,7 +130,7 @@ public class DBHandler extends SQLiteOpenHelper
     @Override
     public synchronized void close() {
 
-        if(myDataBase != null)
+        if (myDataBase != null)
             myDataBase.close();
 
             super.close();
@@ -149,24 +150,28 @@ public class DBHandler extends SQLiteOpenHelper
     // Getting single classroom
     public Classroom getClassroom(String id)
     {
-        //float latitude;
-        //float longitude = (float)0.0;
         SQLiteDatabase db = this.getReadableDatabase();
 
         String selectLatLong = "SELECT LATITUDE, LONGITUDE FROM " + CLASSROOMS + " WHERE _id = '" + id + "'";
 
         Cursor cursor = db.rawQuery(selectLatLong, null);
+
         Classroom classroom = new Classroom();
-        if (cursor.moveToFirst()) {
+
+        if (cursor != null && cursor.moveToFirst()) {
+
             cursor.moveToFirst();
-            //Classroom classroom = new Classroom();
             classroom.setLatitude(Float.parseFloat(cursor.getString(0)));
             classroom.setLongitude(Float.parseFloat(cursor.getString(1)));
-            //latitude = Float.parseFloat(cursor.getString(0));
-            //longitude = Float.parseFloat(cursor.getString(1));
+            Classroom classroom1 = new Classroom(classroom.getLatitude(), classroom.getLongitude());
+            return classroom1;
+
+        } else {
+
+            return null;
+
         }
-        Classroom classroom1 = new Classroom(classroom.getLatitude(), classroom.getLongitude());
-        return classroom1;
+
     }
 
 }

@@ -1,10 +1,13 @@
 package net.androidbootcamp.ivytechapp;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.location.Location;
 import android.location.LocationListener;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +31,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
+                                                GoogleApiClient.OnConnectionFailedListener, LocationListener {
     float latitude;
     float longitude;
     private GoogleMap mMap;
@@ -36,7 +40,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -61,7 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             db.openDataBase();
 
-        }catch(SQLException sqle){
+        } catch (SQLException sqle){
 
             throw sqle;
 
@@ -70,8 +73,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Classroom classrooms = db.getClassroom(roomNum);
 
-        latitude = classrooms.getLatitude();
-        longitude = classrooms.getLongitude();
+        if (classrooms != null){
+
+            latitude = classrooms.getLatitude();
+            longitude = classrooms.getLongitude();
+
+        } else {
+
+            Toast.makeText(MapsActivity.this, "Invalid entry", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(MapsActivity.this, MapsInterfaceActivity.class));
+
+        }
     }
 
 
@@ -89,18 +101,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
-
-
-        // Add a marker in Sydney and move the camera
-        //LatLng sydney = new LatLng(-34, 151);
         LatLng position = new LatLng(latitude, longitude);
         mMap.addMarker(new MarkerOptions().position(position).title("Your Classroom"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude,longitude) , 19.0f));
-        //float zoomLevel = 15.0f;
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(colCampus, zoomLevel));
-        //mMap.setMaxZoomPreference(14.0f);
-        //mMap.setMinZoomPreference(9.0f);
-        //mMap.addMarker(new MarkerOptions().position(colCampus).title("Coliseum Campus"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(colCampus));
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
